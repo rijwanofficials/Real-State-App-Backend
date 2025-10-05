@@ -8,7 +8,7 @@ if (!admin.apps.length) {
     credential: admin.credential.cert(serviceAccount),
     projectId: serviceAccount.project_id, // make sure projectId is passed
   });
-  console.log("✅ Firebase Admin initialized with project:", serviceAccount.project_id);
+  console.log("<<------✅ Firebase Admin initialized with project------->>");
 }
 
 module.exports = admin;

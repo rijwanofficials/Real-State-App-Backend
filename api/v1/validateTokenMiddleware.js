@@ -1,4 +1,4 @@
-const admin = require("../../config/firebase"); // use your firebase.js
+const admin = require("../../config/firebase"); // your firebase.js
 
 const validateTokenMiddleware = async (req, res, next) => {
     console.log("--------------Inside validateTokenMiddleware-------------");
@@ -20,9 +20,17 @@ const validateTokenMiddleware = async (req, res, next) => {
 
     try {
         const decodedToken = await admin.auth().verifyIdToken(token);
-        req.user = decodedToken;
-        console.log("--------------Firebase JWT verified-------------");
         console.log("Decoded Firebase token:", decodedToken);
+        // Map token data to user object
+        req.user = {
+            uid: decodedToken.uid || decodedToken.user_id,
+            email: decodedToken.email,
+            name: decodedToken.name || "",
+        };
+
+        console.log("--------------Firebase JWT verified-------------");
+        console.log("Mapped user:", req.user);
+
         next();
     } catch (error) {
         console.log("--------------Error in side validateTokenMiddleware-------------", error.message);

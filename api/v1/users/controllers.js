@@ -32,48 +32,50 @@ const getCurrentUserController = async (req, res) => {
 
 // Create user record in DB after Firebase signup
 const createUserController = async (req, res) => {
-    try {
-        console.log("-----------Inside createUserController-----------");
+  try {
+    console.log("-----------Inside createUserController-----------");
 
-        const uid = req.user.uid;
+    const { uid, email, name } = req.user;
 
-        // Check if user already exists
-        let user = await User.findOne({ uid }); // Use User and uid instead of firebaseUid
-
-        if (user) {
-            return res.status(200).json({
-                isSuccess: true,
-                message: "User already exists",
-                user
-            });
-        }
-
-        // Extract extra fields you want from req.body, e.g. name, avatar, etc.
-        const { name, email, avatar } = req.body;
-
-        user = new User({
-            uid,  // corrected from firebaseUid
-            name,
-            email,
-            avatar,
-        });
-
-        await user.save();
-
-        res.status(201).json({
-            isSuccess: true,
-            message: "User created",
-            user
-        });
-    } catch (error) {
-        console.log("----------- Error Inside createUserController-----------");
-        console.error("Error creating user:", error);
-        res.status(500).json({
-            isSuccess: false,
-            message: "Internal server error"
-        });
+    if (!email) {
+      throw new Error("Email not found in Firebase token");
     }
+
+    // Check if user already exists
+    let user = await User.findOne({ uid });
+
+    if (user) {
+      return res.status(200).json({
+        isSuccess: true,
+        message: "User already exists",
+        user
+      });
+    }
+
+    user = new User({
+      uid,
+      email,
+      name: name || req.body.name || "",
+      avatar: req.body.avatar || "",
+    });
+
+    await user.save();
+
+    res.status(201).json({
+      isSuccess: true,
+      message: "User created",
+      user
+    });
+  } catch (error) {
+    console.log("----------- Error Inside createUserController-----------");
+    console.error("Error creating user:", error);
+    res.status(500).json({
+      isSuccess: false,
+      message: error.message
+    });
+  }
 };
+
 
 // Update user profile info
 const updateUserController = async (req, res) => {
