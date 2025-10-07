@@ -87,15 +87,15 @@ const deletePropertyController = async (req, res) => {
   try {
     console.log("---------Inside deletePropertyController------------");
     const propertyId = req.params.id;
-    const property = await propertySchema.findById(propertyId);
+    const deletedProperty = await propertySchema.findByIdAndDelete(propertyId);
 
-    if (!property) {
+    if (!deletedProperty) {
       return res.status(404).json({
         isSuccess: false,
         message: "Property not found",
       });
     }
-    const deletedProperty = await propertySchema.findByIdAndDelete(propertyId);
+
     return res.status(200).json({
       isSuccess: true,
       message: "Property deleted successfully",
@@ -118,7 +118,8 @@ const updatePropertyController = async (req, res) => {
     const updates = req.body;
     const updatedProperty = await propertySchema.findByIdAndUpdate(
       propertyId,
-      updates
+      updates,
+      { new: true, runValidators: true }
     );
 
     if (!updatedProperty) {
