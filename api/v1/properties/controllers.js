@@ -5,7 +5,7 @@ const createPropertyController = async (req, res) => {
     console.log("---------Inside createPropertyController------------");
     const { title, description, location, price, type, images } = req.body;
     const uid = req.user.uid;
-    const newProperty = new Property({
+    const newProperty = new (propertySchema)({
       uid,
       title,
       description,

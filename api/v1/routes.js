@@ -2,6 +2,7 @@ const express = require("express");
 const { usersRouter } = require("./users/routes");
 const { transactionsRouter } = require("./transactions/routes");
 const { propertiesRouter } = require("./properties/routes");
+const { contactRouter } = require("./contact/routes");
 
 const apiRouter = express.Router();
 
@@ -9,5 +10,6 @@ apiRouter.use("/users", usersRouter);
 
 apiRouter.use("/transactions", transactionsRouter);
 apiRouter.use("/properties", propertiesRouter);
+apiRouter.use("/contacts", contactRouter);
 
 module.exports = { apiRouter };

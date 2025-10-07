@@ -2,6 +2,7 @@ const express = require("express");
 
 const { createPropertyController, getPropertyByIdController, getAllPropertiesController, deletePropertyController, updatePropertyController } = require("./controllers");
 const { validateTokenMiddleware } = require("../validateTokenmiddleware");
+const { createPropertyValidator } = require("./dto");
 
 const propertiesRouter = express.Router();
 propertiesRouter.use(validateTokenMiddleware);
@@ -12,7 +13,7 @@ propertiesRouter.get("/", getAllPropertiesController);
 propertiesRouter.get("/:id", getPropertyByIdController);
 
 // Create property - POST /properties
-propertiesRouter.post("/", createPropertyController);
+propertiesRouter.post("/", createPropertyValidator, createPropertyController);
 
 // Update property - PUT /properties/:id
 propertiesRouter.put("/:id", updatePropertyController);
