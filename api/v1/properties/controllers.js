@@ -1,5 +1,4 @@
 const propertySchema = require("../../../Models/propertySchema");
-const Property = require("../../../Models/propertySchema");
 
 const createPropertyController = async (req, res) => {
   try {
@@ -35,7 +34,7 @@ const getPropertyByIdController = async (req, res) => {
   try {
     console.log("---------Inside getPropertyByIdController------------");
     const propertyId = req.params.id;
-    const property = await Property.findById(propertyId);
+    const property = await propertySchema.findById(propertyId);
     if (!property) {
       return res.status(404).json({
         isSuccess: false,
@@ -115,13 +114,31 @@ const deletePropertyController = async (req, res) => {
 const updatePropertyController = async (req, res) => {
   try {
     console.log("---------Inside updatePropertyController------------");
+    const propertyId = req.params.id;
+    const updates = req.body;
+    const updatedProperty = await propertySchema.findByIdAndUpdate(
+      propertyId,
+      updates
+    );
 
+    if (!updatedProperty) {
+      return res.status(404).json({
+        isSuccess: false,
+        message: "Property not found",
+      });
+    }
 
-  }
-  catch (err) {
+    res.status(200).json({
+      isSuccess: true,
+      message: "Property updated successfully",
+      data: updatedProperty,
+    });
+  } catch (err) {
     console.log(`---------Error Inside updatePropertyController ------------ ${err.message}`);
-
-
+    res.status(500).json({
+      isSuccess: false,
+      message: "Internal Server Error",
+    });
   }
 }
 

@@ -1,5 +1,4 @@
-const admin = require("../../config/firebase"); // your firebase.js
-
+const admin = require("../../config/firebase");
 const validateTokenMiddleware = async (req, res, next) => {
     console.log("--------------Inside validateTokenMiddleware-------------");
 
@@ -27,10 +26,8 @@ const validateTokenMiddleware = async (req, res, next) => {
             email: decodedToken.email,
             name: decodedToken.name || "",
         };
-
         console.log("--------------Firebase JWT verified-------------");
         console.log("Mapped user:", req.user);
-
         next();
     } catch (error) {
         console.log("--------------Error in side validateTokenMiddleware-------------", error.message);
