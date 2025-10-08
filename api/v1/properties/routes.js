@@ -1,8 +1,8 @@
 const express = require("express");
 
 const { createPropertyController, getPropertyByIdController, getAllPropertiesController, deletePropertyController, updatePropertyController } = require("./controllers");
-const { validateTokenMiddleware } = require("../validateTokenmiddleware");
 const { createPropertyValidator } = require("./dto");
+const { validateTokenMiddleware } = require("../validateTokenmiddleware");
 
 const propertiesRouter = express.Router();
 propertiesRouter.use(validateTokenMiddleware);

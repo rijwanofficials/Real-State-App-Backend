@@ -5,6 +5,6 @@ const { validateTokenMiddleware } = require("../validateTokenmiddleware");
 const contactRouter = express.Router();
 
 
-contactRouter.post("/",validateTokenMiddleware, submitContactValidator, submitContactController);
+contactRouter.post("/", validateTokenMiddleware, submitContactValidator, submitContactController);
 
 module.exports = { contactRouter };
