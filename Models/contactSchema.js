@@ -12,11 +12,6 @@ const contactSchema = new Schema({
         required: true,
         trim: true
     },
-    subject: {
-        type: String,
-        trim: true,
-        default: "No Subject"
-    },
     message: {
         type: String,
         required: true,

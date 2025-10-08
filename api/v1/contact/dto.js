@@ -3,7 +3,6 @@ const submitContactValidator = (req, res, next) => {
     try {
         const { name, email, message } = req.body;
 
-        // --- 1️⃣ Basic empty field validation ---
         if (!name || !email || !message) {
             return res.status(400).json({
                 isSuccess: false,
@@ -11,7 +10,6 @@ const submitContactValidator = (req, res, next) => {
             });
         }
 
-        // --- 2️⃣ Name Validation ---
         if (name.trim().length < 2) {
             return res.status(400).json({
                 isSuccess: false,
@@ -19,7 +17,6 @@ const submitContactValidator = (req, res, next) => {
             });
         }
 
-        // --- 3️⃣ Email Validation ---
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             return res.status(400).json({
@@ -28,7 +25,6 @@ const submitContactValidator = (req, res, next) => {
             });
         }
 
-        // --- 4️⃣ Message Validation ---
         if (message.trim().length < 5) {
             return res.status(400).json({
                 isSuccess: false,
@@ -36,7 +32,6 @@ const submitContactValidator = (req, res, next) => {
             });
         }
 
-        // --- 5️⃣ Everything passed, continue ---
         next();
     } catch (err) {
         console.error("------Error Inside submitContactValidator--------", err);
