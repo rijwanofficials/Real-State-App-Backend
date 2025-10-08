@@ -7,7 +7,7 @@ const {
   getUserSalesController,
   getUserPurchasesController,
 } = require('./controller');
-const { validateTokenMiddleware } = require('../validateTokenmiddleware');
+const { validateTokenMiddleware } = require('../validateTokenMiddleware');
 
 
 const transactionsRouter = express.Router();

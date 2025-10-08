@@ -1,7 +1,7 @@
 const express = require("express");
 const { submitContactController } = require("./controller");
 const { submitContactValidator } = require("./dto");
-const { validateTokenMiddleware } = require("../validateTokenmiddleware");
+const { validateTokenMiddleware } = require("../validateTokenMiddleware");
 const contactRouter = express.Router();
 
 

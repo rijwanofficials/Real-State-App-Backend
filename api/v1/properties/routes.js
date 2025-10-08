@@ -2,7 +2,7 @@ const express = require("express");
 
 const { createPropertyController, getPropertyByIdController, getAllPropertiesController, deletePropertyController, updatePropertyController } = require("./controllers");
 const { createPropertyValidator } = require("./dto");
-const { validateTokenMiddleware } = require("../validateTokenmiddleware");
+const { validateTokenMiddleware } = require("../validateTokenMiddleware");
 
 const propertiesRouter = express.Router();
 propertiesRouter.use(validateTokenMiddleware);
