@@ -1,0 +1,54 @@
+
+const createBuyPropertyValidator = (req, res, next) => {
+    console.log("-----Inside createBuyPropertyValidator-----");
+    const { title, description, location, price, images } = req.body;
+
+    // Title validation
+    if (!title || typeof title !== "string" || title.trim().length < 3) {
+        return res.status(400).json({
+            isSuccess: false,
+            field: "title",
+            message: "Title is required and should be at least 3 characters.",
+        });
+    }
+
+    // Description validation (optional)
+    if (description && typeof description !== "string") {
+        return res.status(400).json({
+            isSuccess: false,
+            field: "description",
+            message: "Description must be a string.",
+        });
+    }
+
+    // Location validation
+    if (!location || typeof location !== "string" || location.trim().length < 2) {
+        return res.status(400).json({
+            isSuccess: false,
+            field: "location",
+            message: "Location is required and should be valid.",
+        });
+    }
+
+    // Price validation
+    if (price === undefined || typeof price !== "number" || price <= 0) {
+        return res.status(400).json({
+            isSuccess: false,
+            field: "price",
+            message: "Price is required and must be a positive number.",
+        });
+    }
+
+    // Images validation (optional)
+    if (images && !Array.isArray(images)) {
+        return res.status(400).json({
+            isSuccess: false,
+            field: "images",
+            message: "Images must be an array of URLs.",
+        });
+    }
+    
+    next();
+};
+
+module.exports = { createBuyPropertyValidator };
