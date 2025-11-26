@@ -28,11 +28,8 @@ app.use(
 );
 
 
-// Connect to MongoDB
 connectDB().then(() => {
     console.log("<<---✅ MongoDB connection stablished before starting server--->>");
-
-    // Start Server after DB connected
     app.listen(PORT, () => {
         console.log(`<<----- ✅ Server started on PORT ${PORT} ------>>`);
     });
